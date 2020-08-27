@@ -9,36 +9,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var selectedValue = 0;
-  var isLargeScreen = false;
+  int _entryCount = 5;
+  int _selectedIndex = 0;
+  bool _isLargeScreen = false;
+
+  void _addEntry() {
+    setState(() {
+      _entryCount++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
-        isLargeScreen = MediaQuery.of(context).size.width > 600;
+        _isLargeScreen = MediaQuery.of(context).size.width > 600;
 
         return Row(children: <Widget>[
           Expanded(
-            child: EntryListWidget(10, (value) {
-              if (isLargeScreen) {
-                selectedValue = value;
+            child: EntryListWidget(_entryCount, (index) {
+              if (_isLargeScreen) {
+                _selectedIndex = index;
                 setState(() {});
               } else {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return EntryDetailPage(value);
+                    return EntryDetailPage(index);
                   },
                 ));
               }
             }),
           ),
-          isLargeScreen
-              ? Expanded(child: EntryDetailWidget(selectedValue))
+          _isLargeScreen
+              ? Expanded(child: EntryDetailWidget(_selectedIndex))
               : Container(),
         ]);
       }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addEntry,
+        tooltip: 'Write an Entry',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

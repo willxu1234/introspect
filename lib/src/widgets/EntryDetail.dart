@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EntryDetailWidget extends StatefulWidget {
-  final int data;
+  final int _data;
 
-  EntryDetailWidget(this.data);
+  EntryDetailWidget(this._data);
 
   @override
   _EntryDetailWidgetState createState() => _EntryDetailWidgetState();
@@ -19,7 +19,7 @@ class _EntryDetailWidgetState extends State<EntryDetailWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              widget.data.toString(),
+              widget._data.toString(),
               style: TextStyle(fontSize: 36.0, color: Colors.white),
             ),
           ],
