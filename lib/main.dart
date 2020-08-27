@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Introspect',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        brightness: Brightness.dark,
+        primaryColor: Colors.deepPurple[300],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
