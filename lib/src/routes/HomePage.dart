@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:introspect/src/pages/EntryDetailPage.dart';
+import 'package:introspect/src/classes/Entry.dart';
+import 'package:introspect/src/routes/AddEntryPage.dart';
+import 'package:introspect/src/routes/EntryDetailPage.dart';
 import 'package:introspect/src/widgets/EntryDetail.dart';
 import 'package:introspect/src/widgets/EntryList.dart';
 
@@ -13,7 +15,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   bool _isLargeScreen = false;
 
-  void _addEntry() {
+  void _onEntryAdded(Entry entry) {
+    // TODO: get entry data from form and add an actual entry.
     setState(() {
       _entryCount++;
     });
@@ -47,7 +50,13 @@ class _HomePageState extends State<HomePage> {
         ]);
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addEntry,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return AddEntryPage(_onEntryAdded);
+            },
+          ));
+        },
         tooltip: 'Write an Entry',
         child: Icon(Icons.add),
       ),
