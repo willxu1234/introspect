@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:introspect/src/widgets/EntryDetail.dart';
+import 'package:introspect/widgets/entry_detail.dart';
 
 class EntryDetailPage extends StatefulWidget {
   final int _data;

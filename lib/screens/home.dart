@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:introspect/src/classes/Entry.dart';
-import 'package:introspect/src/routes/AddEntryPage.dart';
-import 'package:introspect/src/routes/EntryDetailPage.dart';
-import 'package:introspect/src/widgets/EntryDetail.dart';
-import 'package:introspect/src/widgets/EntryList.dart';
+import 'package:introspect/models/entries.dart';
+import 'package:introspect/screens/add_entry.dart';
+import 'package:introspect/screens/entry_detail.dart';
+import 'package:introspect/widgets/entry_detail.dart';
+import 'package:introspect/widgets/entry_list.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,17 +32,19 @@ class _HomePageState extends State<HomePage> {
 
         return Row(children: <Widget>[
           Expanded(
-            child: EntryListWidget(_entryCount, (index) {
-              if (_isLargeScreen) {
-                _selectedIndex = index;
-                setState(() {});
-              } else {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return EntryDetailPage(index);
-                  },
-                ));
-              }
+            child: Consumer<EntriesModel>(builder: (context, entries, child) {
+              return EntryListWidget(entries.length, (index) {
+                if (_isLargeScreen) {
+                  _selectedIndex = index;
+                  setState(() {});
+                } else {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return EntryDetailPage(index);
+                    },
+                  ));
+                }
+              });
             }),
           ),
           _isLargeScreen
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return AddEntryPage(_onEntryAdded);
+              return AddEntryPage();
             },
           ));
         },

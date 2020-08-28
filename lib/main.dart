@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:introspect/src/routes/HomePage.dart';
+import 'package:introspect/models/entries.dart';
+import 'package:introspect/screens/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => EntriesModel(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

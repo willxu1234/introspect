@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:introspect/src/classes/Entry.dart';
-
-typedef void EntryAddedCallback(Entry entry);
+import 'package:introspect/models/entries.dart';
+import 'package:provider/provider.dart';
 
 class AddEntryFormWidget extends StatefulWidget {
-  final EntryAddedCallback _onEntryAdded;
-
-  AddEntryFormWidget(this._onEntryAdded);
-
   @override
   _AddEntryFormWidgetState createState() => _AddEntryFormWidgetState();
 }
@@ -59,7 +54,8 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
                     RaisedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          widget._onEntryAdded(Entry("", DateTime.now(), ""));
+                          Provider.of<EntriesModel>(context, listen: false)
+                              .add(Entry("", DateTime.now(), ""));
                           Navigator.pop(context);
                         }
                       },
