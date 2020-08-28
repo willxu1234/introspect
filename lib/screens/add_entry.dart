@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introspect/widgets/add_entry_form.dart';
 
+// Page after clicking on add entry button.
 class AddEntryPage extends StatefulWidget {
   AddEntryPage();
 

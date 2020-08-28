@@ -17,8 +17,10 @@ class _EntryDetailWidgetState extends State<EntryDetailWidget> {
     return Container(
       child: Center(
         child: Column(
+            // Displays a column of entry details.
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Retrieves directly from EntriesModel.
               Consumer<EntriesModel>(builder: (context, entries, child) {
                 return Text(
                   entries.getEntry(widget._index).body,

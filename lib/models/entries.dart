@@ -8,6 +8,8 @@ class Entry {
   Entry(this.title, this.date, this.body);
 }
 
+// Declared with ChangeNotifier so Consumers can efficiently access the global
+// Entries from other widgets.
 class EntriesModel extends ChangeNotifier {
   final List<Entry> _entries = List<Entry>();
 

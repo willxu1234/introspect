@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:introspect/models/entries.dart';
 import 'package:introspect/screens/add_entry.dart';
 import 'package:introspect/screens/entry_detail.dart';
 import 'package:introspect/widgets/entry_detail.dart';
 import 'package:introspect/widgets/entry_list.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,35 +10,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _entryCount = 5;
   int _selectedIndex = 0;
+  // True on tablets and other larger screens.
   bool _isLargeScreen = false;
-
-  void _onEntryAdded(Entry entry) {
-    // TODO: get entry data from form and add an actual entry.
-    setState(() {
-      _entryCount++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    // Keeps track of scaffold state, so snackbars are shown properly.
     final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
         _isLargeScreen = MediaQuery.of(context).size.width > 600;
-
         return Row(children: <Widget>[
           Expanded(
             child: EntryListWidget((index) {
               if (_isLargeScreen) {
-                _selectedIndex = index;
+                // Show detail for _selectedIndex on the side.
                 setState(() {
                   _selectedIndex = index;
                 });
               } else {
+                // Show detail page separately.
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return EntryDetailPage(index);
@@ -51,11 +43,13 @@ class _HomePageState extends State<HomePage> {
           ),
           _isLargeScreen
               ? Expanded(child: EntryDetailWidget(_selectedIndex))
-              : Container(),
+              : Container(), // Show empty container if the screen is small.
         ]);
       }),
-      floatingActionButton: FloatingActionButton(
+      // Add button.
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          // Send to add page on press.
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
               return AddEntryPage();
@@ -65,7 +59,8 @@ class _HomePageState extends State<HomePage> {
               .showSnackBar(SnackBar(content: Text('Entry written!')));
         },
         tooltip: 'Write an Entry',
-        child: Icon(Icons.add),
+        label: Text('Compose'),
+        icon: Icon(Icons.add),
       ),
     );
   }
