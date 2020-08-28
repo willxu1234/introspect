@@ -1,29 +1,26 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 
 class Entry {
-  String _title;
-  DateTime _date;
-  String _body;
+  String title;
+  DateTime date;
+  String body;
 
-  Entry(this._title, this._date, this._body);
+  Entry(this.title, this.date, this.body);
 }
 
 class EntriesModel extends ChangeNotifier {
-  final LinkedHashMap<int, Entry> _entries = LinkedHashMap<int, Entry>();
-  int _nextId = 0;
+  final List<Entry> _entries = List<Entry>();
 
   void add(Entry entry) {
-    _entries[_nextId] = entry;
-    _nextId++;
+    _entries.add(entry);
     notifyListeners();
   }
 
-  LinkedHashMap<int, Entry> get entries => _entries;
+  List<Entry> get entries => _entries;
 
   void editEntry(int id, Entry entry) {
     _entries[id] = entry;
+    notifyListeners();
   }
 
   Entry getEntry(int id) {
@@ -33,7 +30,7 @@ class EntriesModel extends ChangeNotifier {
   int get length => _entries.length;
 
   void remove(int id) {
-    _entries.remove(id);
+    _entries.removeAt(id);
     notifyListeners();
   }
 }

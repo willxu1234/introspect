@@ -25,26 +25,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
         _isLargeScreen = MediaQuery.of(context).size.width > 600;
 
         return Row(children: <Widget>[
           Expanded(
-            child: Consumer<EntriesModel>(builder: (context, entries, child) {
-              return EntryListWidget(entries.length, (index) {
-                if (_isLargeScreen) {
+            child: EntryListWidget((index) {
+              if (_isLargeScreen) {
+                _selectedIndex = index;
+                setState(() {
                   _selectedIndex = index;
-                  setState(() {});
-                } else {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return EntryDetailPage(index);
-                    },
-                  ));
-                }
-              });
+                });
+              } else {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return EntryDetailPage(index);
+                  },
+                ));
+              }
             }),
           ),
           _isLargeScreen
@@ -59,6 +61,8 @@ class _HomePageState extends State<HomePage> {
               return AddEntryPage();
             },
           ));
+          scaffoldKey.currentState
+              .showSnackBar(SnackBar(content: Text('Entry written!')));
         },
         tooltip: 'Write an Entry',
         child: Icon(Icons.add),

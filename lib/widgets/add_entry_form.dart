@@ -10,6 +10,15 @@ class AddEntryFormWidget extends StatefulWidget {
 
 class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
   final _formKey = GlobalKey<FormState>();
+  final _titleController = TextEditingController();
+  final _bodyController = TextEditingController(); // hehe
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _bodyController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,7 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
                   padding: const EdgeInsets.all(16.0),
                   children: <Widget>[
                     TextFormField(
+                      controller: _titleController,
                       decoration: const InputDecoration(
                         hintText: 'Enter a title',
                       ),
@@ -41,6 +51,7 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
                       },
                     ),
                     TextFormField(
+                      controller: _bodyController,
                       decoration: const InputDecoration(
                         hintText: 'How was your day?',
                       ),
@@ -54,8 +65,9 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
                     RaisedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          Provider.of<EntriesModel>(context, listen: false)
-                              .add(Entry("", DateTime.now(), ""));
+                          Provider.of<EntriesModel>(context, listen: false).add(
+                              Entry(_titleController.text, DateTime.now(),
+                                  _bodyController.text));
                           Navigator.pop(context);
                         }
                       },
