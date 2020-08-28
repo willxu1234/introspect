@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:introspect/models/entries.dart';
+import 'package:provider/provider.dart';
 
 class EntryDetailWidget extends StatefulWidget {
-  final int _data;
+  final int _index;
 
-  EntryDetailWidget(this._data);
+  EntryDetailWidget(this._index);
 
   @override
   _EntryDetailWidgetState createState() => _EntryDetailWidgetState();
@@ -15,14 +17,15 @@ class _EntryDetailWidgetState extends State<EntryDetailWidget> {
     return Container(
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              widget._data.toString(),
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Consumer<EntriesModel>(builder: (context, entries, child) {
+                return Text(
+                  entries.getEntry(widget._index).body,
+                  style: Theme.of(context).textTheme.headline1,
+                );
+              }),
+            ]),
       ),
     );
   }
