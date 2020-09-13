@@ -13,6 +13,12 @@ class Entry {
 class EntriesModel extends ChangeNotifier {
   final List<Entry> _entries = List<Entry>();
 
+  static final Entry _defaultEntry = new Entry(
+      "No entries yet. Make your first"
+          "one by hitting Compose!",
+      null,
+      "");
+
   void add(Entry entry) {
     _entries.add(entry);
     notifyListeners();
@@ -21,17 +27,26 @@ class EntriesModel extends ChangeNotifier {
   List<Entry> get entries => _entries;
 
   void editEntry(int id, Entry entry) {
+    if (id >= _entries.length) {
+      return;
+    }
     _entries[id] = entry;
     notifyListeners();
   }
 
   Entry getEntry(int id) {
+    if (id >= _entries.length) {
+      return _defaultEntry;
+    }
     return _entries[id];
   }
 
   int get length => _entries.length;
 
   void remove(int id) {
+    if (id >= _entries.length) {
+      return;
+    }
     _entries.removeAt(id);
     notifyListeners();
   }

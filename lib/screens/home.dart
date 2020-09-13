@@ -11,15 +11,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  // True on tablets and other larger screens.
+  // True on tablets, landscape mode and other larger screens.
   bool _isLargeScreen = false;
 
   @override
   Widget build(BuildContext context) {
-    // Keeps track of scaffold state, so snackbars are shown properly.
-    final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
         _isLargeScreen = MediaQuery.of(context).size.width > 600;
@@ -55,8 +52,6 @@ class _HomePageState extends State<HomePage> {
               return AddEntryPage();
             },
           ));
-          scaffoldKey.currentState
-              .showSnackBar(SnackBar(content: Text('Entry written!')));
         },
         tooltip: 'Write an Entry',
         label: Text('Compose'),
