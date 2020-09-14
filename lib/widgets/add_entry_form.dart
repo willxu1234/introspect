@@ -25,7 +25,6 @@ class _AddEntryFormPageOneWidgetState extends State<AddEntryFormPageOneWidget> {
 
   void submitForm() async {
     if (_formKey.currentState.validate()) {
-      // TODO: change to push form page two.
       // Get the complete new entry once the next routes are done with it.
       Entry newEntry = await Navigator.push(
           context,
