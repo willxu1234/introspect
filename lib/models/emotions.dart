@@ -115,7 +115,7 @@ class Emotions {
     "nostalgic": nostalgic,
   });
   static final Emotion grateful = Emotion("Grateful", Colors.yellow, {
-    "appreciateive": appreciative,
+    "appreciative": appreciative,
     "thankful": thankful,
   });
 
