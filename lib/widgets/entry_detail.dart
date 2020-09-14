@@ -23,7 +23,7 @@ class _EntryDetailWidgetState extends State<EntryDetailWidget> {
               // Retrieves directly from EntriesModel.
               Consumer<EntriesModel>(builder: (context, entries, child) {
                 return Text(
-                  entries.getEntry(widget._index).body,
+                  entries.getEntry(widget._index).emotion.name,
                   style: Theme.of(context).textTheme.headline1,
                 );
               }),

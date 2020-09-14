@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           Entry newEntry =
               await Navigator.push(context, MaterialPageRoute<Entry>(
             builder: (context) {
-              return AddEntryPage();
+              return AddEntryPageOne();
             },
           ));
           if (newEntry != null) {
