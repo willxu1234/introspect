@@ -84,26 +84,37 @@ class AddEntryFormPageTwoWidget extends StatefulWidget {
 }
 
 class _AddEntryFormPageTwoWidgetState extends State<AddEntryFormPageTwoWidget> {
-  // Form key validates entries.
-  final _formKey = GlobalKey<FormState>();
-  // Controllers keep track of text boxes.
-  final _bodyController = TextEditingController(); // hehe
+  Emotion _selectedEmotion;
 
-  @override
-  void dispose() {
-    // Clean up controllers after user leaves the page.
-    _bodyController.dispose();
-    super.dispose();
-  }
-
-  void submitForm(Entry newEntryWithBody) {
-    if (_formKey.currentState.validate()) {
-      // Pop and return the new entry to the Navigator that called it, using the
-      // body from form one.
-      Navigator.pop(
-          context,
-          Entry(DateTime.now(), newEntryWithBody.body,
-              Emotion(_bodyController.text, Colors.green, {})));
+  void submitForm(Entry newEntryWithBody) async {
+    // Don't consider submitting if _selectedEmotion hasn't been set yet.
+    if (_selectedEmotion != null) {
+      if (_selectedEmotion.children.isNotEmpty &&
+          _selectedEmotion != newEntryWithBody.emotion) {
+        Entry newEntry = await Navigator.push(
+            context,
+            MaterialPageRoute<Entry>(
+              builder: (context) {
+                return AddEntryPageTwo();
+              },
+              // Pass the entry with just the body to form two.
+              settings: RouteSettings(
+                arguments: Entry(null, newEntryWithBody.body, _selectedEmotion),
+              ),
+            ));
+        Navigator.pop(context, newEntry);
+      } else {
+        // Pop and return the new entry to the Navigator that called it, using the
+        // body from form one.
+        Navigator.pop(context,
+            Entry(DateTime.now(), newEntryWithBody.body, _selectedEmotion));
+      }
+    } else {
+      // Display snackbar if no emotion selected.
+      final snackBar = SnackBar(
+        content: Text('Please select an emotion.'),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -114,34 +125,43 @@ class _AddEntryFormPageTwoWidgetState extends State<AddEntryFormPageTwoWidget> {
 
     return Material(
       child: Center(
-        child: Form(
-          key: _formKey,
-          child:
-              ListView(padding: const EdgeInsets.all(16.0), children: <Widget>[
-            TextFormField(
-              // TODO: Prettify this.
-              // Body field.
-              textInputAction: TextInputAction.done,
-              controller: _bodyController,
-              decoration: const InputDecoration(
-                hintText: 'How are you feeling?',
-              ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            RaisedButton(
-              // Submit button, passes incomplete entry to submitForm().
-              onPressed: () {
-                submitForm(newEntryWithBody);
-              },
-              child: Text('Submit'),
-            ),
-          ]),
-        ),
+        child: ListView(padding: const EdgeInsets.all(16.0), children: <Widget>[
+          // Add radio buttons for each child of the current emotion.
+          for (Emotion emotion in newEntryWithBody.emotion.children.values)
+            RadioListTile<Emotion>(
+                title: Text(emotion.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: emotion.color)),
+                activeColor: newEntryWithBody.emotion.color,
+                value: emotion,
+                groupValue: _selectedEmotion,
+                onChanged: (Emotion selectedEmotion) {
+                  setState(() {
+                    _selectedEmotion = selectedEmotion;
+                  });
+                  submitForm(newEntryWithBody);
+                }),
+          // Show the last selected emotion if it isn't the first time the
+          // user has entered form two.
+          if (newEntryWithBody.emotion.name != "default")
+            RadioListTile<Emotion>(
+                title: Text("Just " + newEntryWithBody.emotion.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: newEntryWithBody.emotion.color)),
+                activeColor: newEntryWithBody.emotion.color,
+                value: newEntryWithBody.emotion,
+                groupValue: _selectedEmotion,
+                onChanged: (Emotion selectedEmotion) {
+                  setState(() {
+                    _selectedEmotion = selectedEmotion;
+                  });
+                  submitForm(newEntryWithBody);
+                }),
+        ]),
       ),
     );
   }
