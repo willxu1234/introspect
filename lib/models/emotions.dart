@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
 class Emotion {
@@ -8,133 +6,141 @@ class Emotion {
   Map<String, Emotion> children;
 
   Emotion(this.name, this.color, this.children);
+
+  // Return a list of size count containing interpolated colors from start to
+  // end.
+  static List<Color> interpolateColor(int count, Color start, Color end) {
+    double deltaR = (end.red - start.red) / (count + 1);
+    double deltaG = (end.green - start.green) / (count + 1);
+    double deltaB = (end.blue - start.blue) / (count + 1);
+
+    double r = start.red.toDouble();
+    double g = start.green.toDouble();
+    double b = start.blue.toDouble();
+
+    List<Color> colors = [];
+    for (int i = 0; i < count; ++i) {
+      colors.add(Color.fromRGBO(r.round(), g.round(), b.round(), 1.0));
+      r += deltaR;
+      g += deltaG;
+      b += deltaB;
+    }
+
+    return colors;
+  }
+
+  // Basically just used to add level 2 children, interpolating color between
+  // the two surrounding level 1 emotions.
+  void addChildren(List<String> childNames, Color start, Color end) {
+    if (childNames.isEmpty) {
+      return;
+    } else if (childNames.length == 1) {
+      children[childNames[0]] = Emotion(childNames[0], this.color, {});
+    } else if (childNames.length % 2 == 0) {
+      // Even length case.
+      List<Color> startColors =
+          interpolateColor(childNames.length + 1, start, this.color);
+      List<Color> endColors =
+          interpolateColor(childNames.length + 1, this.color, end);
+
+      // Add start half.
+      for (int i = 0; i < childNames.length ~/ 2; ++i) {
+        String childName = childNames[i];
+        this.children[childName] =
+            Emotion(childName, startColors[i + childNames.length ~/ 2], {});
+      }
+      // Add end half.
+      for (int i = 0; i < childNames.length ~/ 2; ++i) {
+        String childName = childNames[i + childNames.length ~/ 2];
+        this.children[childName] = Emotion(childName, endColors[i + 1], {});
+      }
+    } else {
+      // Odd length case.
+      List<Color> startColors =
+          interpolateColor(childNames.length, start, this.color);
+      List<Color> endColors =
+          interpolateColor(childNames.length, this.color, end);
+      String childName;
+
+      // Add start half.
+      for (int i = 0; i < childNames.length ~/ 2; ++i) {
+        childName = childNames[i];
+        this.children[childName] =
+            Emotion(childName, startColors[i + childNames.length ~/ 2 + 1], {});
+      }
+
+      // Add middle color.
+      childName = childNames[childNames.length ~/ 2];
+      this.children[childName] = Emotion(childName, this.color, {});
+
+      // Add end half.
+      for (int i = 0; i < childNames.length ~/ 2; ++i) {
+        String childName = childNames[i + childNames.length ~/ 2 + 1];
+        this.children[childName] = Emotion(childName, endColors[i + 1], {});
+      }
+    }
+  }
 }
 
 // The full emotion wheel is at Emotions.wheel.
 class Emotions {
-  // TODO: Add actual color interpolation.
+  static Emotion generateWheel() {
+    Emotion joy = Emotion("joy", joyColor, {});
+    Emotion love = Emotion("love", loveColor, {});
+    Emotion fear = Emotion("fear", fearColor, {});
+    Emotion anger = Emotion("anger", angerColor, {});
+    Emotion sadness = Emotion("sadness", sadnessColor, {});
+    Emotion surprise = Emotion("surprise", surpriseColor, {});
 
-  // Joy, level 3.
-  static final Emotion jubilant = Emotion("Jubilant", Colors.green, HashMap());
-  static final Emotion elated = Emotion("Elated", Colors.green, HashMap());
-  static final Emotion zealous = Emotion("Zealous", Colors.green, HashMap());
-  static final Emotion enthusiastic =
-      Emotion("Enthusiastic", Colors.green, HashMap());
-  static final Emotion hopeful = Emotion("Hopeful", Colors.green, HashMap());
-  static final Emotion eager = Emotion("Eager", Colors.green, HashMap());
-  static final Emotion illustrious =
-      Emotion("Illustrious", Colors.green, HashMap());
-  static final Emotion triumphant =
-      Emotion("Triumphant", Colors.green, HashMap());
-  static final Emotion playful = Emotion("Playful", Colors.green, HashMap());
-  static final Emotion amused = Emotion("Amused", Colors.green, HashMap());
-  static final Emotion delighted =
-      Emotion("Delighted", Colors.green, HashMap());
-  static final Emotion jovial = Emotion("Jovial", Colors.green, HashMap());
-  static final Emotion pleased = Emotion("Pleased", Colors.green, HashMap());
-  static final Emotion satisfied =
-      Emotion("Satisfied", Colors.green, HashMap());
-  static final Emotion serene = Emotion("Serene", Colors.green, HashMap());
-  static final Emotion tranquil = Emotion("Tranquil", Colors.green, HashMap());
+    joy.addChildren([
+      "peaceful",
+      "content",
+      "happy",
+      "cheerful",
+      "proud",
+      "optimistic",
+      "excited",
+      "euphoric"
+    ], surpriseColor, loveColor);
 
-// Joy, level 2.
-  static final Emotion euphoric = Emotion("Euphoric", Colors.green, {
-    "jubliant": jubilant,
-    "elated": elated,
-  });
-  static final Emotion excited = Emotion("Excited", Colors.green, {
-    "zealous": zealous,
-    "enthusiastic": enthusiastic,
-  });
-  static final Emotion optimistic = Emotion("Optimistic", Colors.green, {
-    "hopeful": hopeful,
-    "eager": eager,
-  });
-  static final Emotion proud = Emotion("Proud", Colors.green, {
-    "illustrious": illustrious,
-    "triumphant": triumphant,
-  });
-  static final Emotion cheerful = Emotion("Cheerful", Colors.green, {
-    "playful": playful,
-    "amused": amused,
-  });
-  static final Emotion happy = Emotion("Happy", Colors.green, {
-    "delighted": delighted,
-    "jovial": jovial,
-  });
-  static final Emotion content = Emotion("Content", Colors.green, {
-    "pleased": pleased,
-    "satisfied": satisfied,
-  });
-  static final Emotion peaceful = Emotion("Peaceful", Colors.green, {
-    "serene": serene,
-    "tranquil": tranquil,
-  });
+    love.addChildren(
+        ["enchanted", "romantic", "affectionate", "sentimental", "grateful"],
+        joyColor,
+        fearColor);
 
-  // Joy, level 1.
-  static final Emotion joy = Emotion("Joyful", Colors.green, {
-    "euphoric": euphoric,
-    "excited": excited,
-    "optimistic": optimistic,
-    "proud": proud,
-    "cheerful": cheerful,
-    "happy": happy,
-    "content": content,
-    "peaceful": peaceful,
-  });
+    fear.addChildren(
+        ["scared", "terrified", "insecure", "nervous", "horrified"],
+        loveColor,
+        angerColor);
 
-  // Love, level 3.
-  static final Emotion enthralled = Emotion("Enthralled", Colors.yellow, {});
-  static final Emotion rapturous = Emotion("Rapturous", Colors.yellow, {});
-  static final Emotion passionate = Emotion("Passionate", Colors.yellow, {});
-  static final Emotion enamored = Emotion("Enamored", Colors.yellow, {});
-  static final Emotion warmhearted = Emotion("Warmhearted", Colors.yellow, {});
-  static final Emotion compassionate =
-      Emotion("Compassionate", Colors.yellow, {});
-  static final Emotion tender = Emotion("Tender", Colors.yellow, {});
-  static final Emotion nostalgic = Emotion("Nostalgic", Colors.yellow, {});
-  static final Emotion appreciative =
-      Emotion("Appreciative", Colors.yellow, {});
-  static final Emotion thankful = Emotion("Thankful", Colors.yellow, {});
+    anger.addChildren(
+        ["enraged", "exasperated", "irritable", "jealous", "disgusted"],
+        fearColor,
+        sadnessColor);
 
-  // Love, level 2.
-  static final Emotion enchanted = Emotion("Enchanted", Colors.yellow, {
-    "enthralled": enthralled,
-    "rapturous": rapturous,
-  });
-  static final Emotion romantic = Emotion("Romantic", Colors.yellow, {
-    "passionate": passionate,
-    "enamored": enamored,
-  });
-  static final Emotion affectionate = Emotion("Affectionate", Colors.yellow, {
-    "warmhearted": warmhearted,
-    "compassionate": compassionate,
-  });
-  static final Emotion sentimental = Emotion("Sentimental", Colors.yellow, {
-    "tender": tender,
-    "nostalgic": nostalgic,
-  });
-  static final Emotion grateful = Emotion("Grateful", Colors.yellow, {
-    "appreciative": appreciative,
-    "thankful": thankful,
-  });
+    sadness.addChildren(
+        ["hurt", "unhappy", "disappointed", "shameful", "lonely", "gloomy"],
+        angerColor,
+        surpriseColor);
 
-  // Love, level 1.
-  static final Emotion love = Emotion("Love", Colors.yellow, {
-    "grateful": grateful,
-    "sentimental": sentimental,
-    "affectionate": affectionate,
-    "romantic": romantic,
-    "enchanted": enchanted,
-  });
+    surprise.addChildren(["stunned", "confused", "amazed", "overcome", "moved"],
+        sadnessColor, joyColor);
 
-  // The beeg emotion wheel.
-  static final Emotion wheel = Emotion("default", Colors.white, {
-    "joy": joy,
-    "love": love,
-    // "fear": fear,
-    // "anger": anger,
-    // "sadness": sadness,
-    // "surprise": surprise,
-  });
+    return Emotion("default", Colors.white, {
+      "joy": joy,
+      "love": love,
+      "fear": fear,
+      "anger": anger,
+      "sadness": sadness,
+      "surprise": surprise
+    });
+  }
+
+  static final Color joyColor = Colors.green;
+  static final Color loveColor = Colors.yellow;
+  static final Color fearColor = Colors.orange;
+  static final Color angerColor = Colors.pink[500];
+  static final Color sadnessColor = Colors.blue[600];
+  static final Color surpriseColor = Colors.teal;
+  static final Emotion wheel = generateWheel();
 }

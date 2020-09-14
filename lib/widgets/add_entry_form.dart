@@ -129,7 +129,7 @@ class _AddEntryFormPageTwoWidgetState extends State<AddEntryFormPageTwoWidget> {
           // Add radio buttons for each child of the current emotion.
           for (Emotion emotion in newEntryWithBody.emotion.children.values)
             RadioListTile<Emotion>(
-                title: Text(emotion.name,
+                title: Text(emotion.name.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
@@ -145,9 +145,10 @@ class _AddEntryFormPageTwoWidgetState extends State<AddEntryFormPageTwoWidget> {
                 }),
           // Show the last selected emotion if it isn't the first time the
           // user has entered form two.
+          if (newEntryWithBody.emotion.name != "default") Divider(),
           if (newEntryWithBody.emotion.name != "default")
             RadioListTile<Emotion>(
-                title: Text("Just " + newEntryWithBody.emotion.name,
+                title: Text(newEntryWithBody.emotion.name.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
