@@ -33,7 +33,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     // Choose which entry to display.
-                    child: Text(entries.getEntry(position).title),
+                    child: Text(entries.getEntry(position).body),
                   ),
                 ],
               ),

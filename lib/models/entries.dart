@@ -3,12 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'emotions.dart';
 
 class Entry {
-  String title;
   DateTime date;
   String body;
   Emotion emotion;
 
-  Entry(this.title, this.date, this.body, this.emotion);
+  Entry(this.date, this.body, this.emotion);
 }
 
 // Declared with ChangeNotifier so Consumers can efficiently access the global
@@ -19,10 +18,8 @@ class EntriesModel extends ChangeNotifier {
   final List<Entry> _entries = List<Entry>();
 
   static final Entry _defaultEntry = new Entry(
-      "No entries yet. Make your first"
-          "one by hitting Compose!",
       null,
-      "",
+      "No entries yet. Make your first one by hitting Compose!",
       Emotions.wheel);
 
   void add(Entry entry) {
