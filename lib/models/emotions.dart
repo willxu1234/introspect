@@ -141,6 +141,6 @@ class Emotions {
   static final Color fearColor = Colors.orange;
   static final Color angerColor = Colors.pink[500];
   static final Color sadnessColor = Colors.blue[600];
-  static final Color surpriseColor = Colors.teal;
+  static final Color surpriseColor = Colors.white;
   static final Emotion wheel = generateWheel();
 }
