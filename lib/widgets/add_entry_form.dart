@@ -51,9 +51,12 @@ class _AddEntryFormPageOneWidgetState extends State<AddEntryFormPageOneWidget> {
           child:
               ListView(padding: const EdgeInsets.all(16.0), children: <Widget>[
             TextFormField(
-              // TODO: Prettify this.
               // Body field.
+              autofocus: true,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               textInputAction: TextInputAction.done,
+              // onEditingComplete: submitForm,
               controller: _bodyController,
               decoration: const InputDecoration(
                 hintText: 'Hi there! What did you do today?',
