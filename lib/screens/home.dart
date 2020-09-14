@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:introspect/models/entries.dart';
 import 'package:introspect/screens/add_entry.dart';
 import 'package:introspect/screens/entry_detail.dart';
 import 'package:introspect/widgets/entry_list.dart';
 import 'package:introspect/widgets/reusable_widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,13 +32,18 @@ class _HomePageState extends State<HomePage> {
       }),
       // Add button.
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
           // Send to add page on press.
-          Navigator.push(context, MaterialPageRoute(
+          Entry newEntry =
+              await Navigator.push(context, MaterialPageRoute<Entry>(
             builder: (context) {
               return AddEntryPage();
             },
           ));
+          if (newEntry != null) {
+            // Directly adds entry to EntriesModel.
+            Provider.of<EntriesModel>(context, listen: false).add(newEntry);
+          }
         },
         tooltip: 'Write an Entry',
         label: Text('Compose'),

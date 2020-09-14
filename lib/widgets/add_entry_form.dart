@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introspect/models/emotions.dart';
 import 'package:introspect/models/entries.dart';
-import 'package:provider/provider.dart';
 
 class AddEntryFormWidget extends StatefulWidget {
   @override
@@ -24,10 +23,9 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
 
   void submitForm() {
     if (_formKey.currentState.validate()) {
-      // Directly adds entry to EntriesModel.
-      Provider.of<EntriesModel>(context, listen: false)
-          .add(Entry(DateTime.now(), _bodyController.text, Emotions.wheel));
-      Navigator.pop(context);
+      // Pop and return the new entry to the Navigator that called it.
+      Navigator.pop(
+          context, Entry(DateTime.now(), _bodyController.text, Emotions.wheel));
     }
   }
 
