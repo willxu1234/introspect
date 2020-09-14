@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introspect/widgets/add_entry_form.dart';
+import 'package:introspect/widgets/reusable_widgets.dart';
 
 // Page after clicking on add entry button.
 class AddEntryPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: ReusableWidgets.getAppBar(),
       body: AddEntryFormWidget(),
     );
   }

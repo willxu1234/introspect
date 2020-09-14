@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introspect/screens/add_entry.dart';
 import 'package:introspect/screens/entry_detail.dart';
 import 'package:introspect/widgets/entry_list.dart';
+import 'package:introspect/widgets/reusable_widgets.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: ReusableWidgets.getAppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
         return Row(children: <Widget>[
           Expanded(
