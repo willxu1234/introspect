@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:introspect/models/emotions.dart';
 import 'package:introspect/models/entries.dart';
 import 'package:provider/provider.dart';
 
@@ -26,8 +27,11 @@ class _AddEntryFormWidgetState extends State<AddEntryFormWidget> {
   void submitForm() {
     if (_formKey.currentState.validate()) {
       // Directly adds entry to EntriesModel.
-      Provider.of<EntriesModel>(context, listen: false).add(
-          Entry(_titleController.text, DateTime.now(), _bodyController.text));
+      Provider.of<EntriesModel>(context, listen: false).add(Entry(
+          _titleController.text,
+          DateTime.now(),
+          _bodyController.text,
+          Emotions.wheel));
       Navigator.pop(context);
     }
   }

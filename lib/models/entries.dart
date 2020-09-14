@@ -1,15 +1,20 @@
 import 'package:flutter/foundation.dart';
 
+import 'emotions.dart';
+
 class Entry {
   String title;
   DateTime date;
   String body;
+  Emotion emotion;
 
-  Entry(this.title, this.date, this.body);
+  Entry(this.title, this.date, this.body, this.emotion);
 }
 
 // Declared with ChangeNotifier so Consumers can efficiently access the global
-// Entries from other widgets.
+// Entries from other widgets. The order should always be from oldest to newest,
+// i.e. the date of an entry should never change and entries can only be added
+// to the end.
 class EntriesModel extends ChangeNotifier {
   final List<Entry> _entries = List<Entry>();
 
@@ -17,7 +22,8 @@ class EntriesModel extends ChangeNotifier {
       "No entries yet. Make your first"
           "one by hitting Compose!",
       null,
-      "");
+      "",
+      Emotions.wheel);
 
   void add(Entry entry) {
     _entries.add(entry);
