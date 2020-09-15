@@ -15,7 +15,59 @@ class Entry {
 // i.e. the date of an entry should never change and entries can only be added
 // to the end.
 class EntriesModel extends ChangeNotifier {
-  final List<Entry> _entries = List<Entry>();
+  // final List<Entry> _entries = List<Entry>();
+
+  // Sample entries:
+  final List<Entry> _entries = [
+    Entry(DateTime.utc(2020, 9, 10), "This is a short entry.",
+        Emotions.wheel.children["joy"]),
+    Entry(
+        DateTime.utc(2020, 9, 9),
+        "This is a loooooooooooooooooooooooooooooong entry.",
+        Emotions.wheel.children["sadness"]),
+    Entry(
+        DateTime.utc(2020, 8, 11),
+        "This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long. This entry is super long.",
+        Emotions.wheel.children["anger"]),
+    Entry(DateTime.utc(2020, 8, 11), "This entry is short.",
+        Emotions.wheel.children["anger"]),
+    Entry(DateTime.utc(2020, 8, 10), "This entry is short.",
+        Emotions.wheel.children["joy"]),
+    Entry(
+        DateTime.utc(2020, 8, 1),
+        "This entry has level two emotions and it's somewhat long.",
+        Emotions.wheel.children["joy"].children["euphoric"]),
+    Entry(DateTime.utc(2020, 7, 15), "This entry also has level two emotions.",
+        Emotions.wheel.children["anger"].children["enraged"]),
+    Entry(DateTime.utc(2020, 5, 20), "This entry is from longer ago.",
+        Emotions.wheel.children["fear"]),
+    Entry(DateTime.utc(1989, 1, 1), "This entry is from very long ago.",
+        Emotions.wheel.children["surprise"]),
+    Entry(DateTime.utc(2020, 8, 10), "This entry is short.",
+        Emotions.wheel.children["joy"]),
+    Entry(
+        DateTime.utc(2020, 8, 1),
+        "This entry has level two emotions and it's somewhat long.",
+        Emotions.wheel.children["joy"].children["euphoric"]),
+    Entry(DateTime.utc(2020, 7, 15), "This entry also has level two emotions.",
+        Emotions.wheel.children["anger"].children["enraged"]),
+    Entry(DateTime.utc(2020, 5, 20), "This entry is from longer ago.",
+        Emotions.wheel.children["fear"]),
+    Entry(DateTime.utc(1989, 1, 1), "This entry is from very long ago.",
+        Emotions.wheel.children["surprise"]),
+    Entry(DateTime.utc(2020, 8, 10), "This entry is short.",
+        Emotions.wheel.children["joy"]),
+    Entry(
+        DateTime.utc(2020, 8, 1),
+        "This entry has level two emotions and it's somewhat long.",
+        Emotions.wheel.children["joy"].children["euphoric"]),
+    Entry(DateTime.utc(2020, 7, 15), "This entry also has level two emotions.",
+        Emotions.wheel.children["anger"].children["enraged"]),
+    Entry(DateTime.utc(2020, 5, 20), "This entry is from longer ago.",
+        Emotions.wheel.children["fear"]),
+    Entry(DateTime.utc(1989, 1, 1), "This entry is from very long ago.",
+        Emotions.wheel.children["surprise"]),
+  ];
 
   static final Entry _defaultEntry = new Entry(
       null,
