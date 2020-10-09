@@ -56,7 +56,7 @@ class _AddEntryFormPageOneWidgetState extends State<AddEntryFormPageOneWidget> {
               keyboardType: TextInputType.multiline,
               maxLines: null,
               textInputAction: TextInputAction.done,
-              // onEditingComplete: submitForm,
+              onEditingComplete: submitForm,
               controller: _bodyController,
               decoration: const InputDecoration(
                 hintText: 'Hi there! What did you do today?',
