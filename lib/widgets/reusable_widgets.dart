@@ -33,6 +33,8 @@ class BottomNavigation extends StatelessWidget {
       ],
       currentIndex: routeIndex,
       onTap: onTap,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
     );
   }
 }
