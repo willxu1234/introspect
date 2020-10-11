@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:introspect/models/entries.dart';
 import 'package:introspect/screens/home.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +19,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Introspect',
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.deepPurple[300],
+        // brightness: Brightness.dark,
+        // primaryColor: Colors.deepPurple[300],
+        // primaryColor: Colors.grey[800],
+        primaryColor: Colors.black,
+        // accentColor: Colors.grey[800],
+        accentColor: Colors.black,
+        textTheme: GoogleFonts.notoSansTextTheme(),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),

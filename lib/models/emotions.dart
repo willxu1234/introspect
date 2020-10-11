@@ -136,11 +136,11 @@ class Emotions {
     });
   }
 
-  static final Color joyColor = Colors.green;
-  static final Color loveColor = Colors.yellow;
-  static final Color fearColor = Colors.orange;
-  static final Color angerColor = Colors.pink[500];
-  static final Color sadnessColor = Colors.blue[600];
-  static final Color surpriseColor = Colors.white;
+  static final Color joyColor = Colors.green[300];
+  static final Color loveColor = Colors.red[200];
+  static final Color fearColor = Colors.orange[400];
+  static final Color angerColor = Colors.red[500];
+  static final Color sadnessColor = Colors.blue[300];
+  static final Color surpriseColor = Colors.purple[500];
   static final Emotion wheel = generateWheel();
 }
