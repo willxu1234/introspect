@@ -65,7 +65,10 @@ class _EntryListWidgetState extends State<EntryListWidget> {
             ),
             // Add some padding at the end so users can scroll past the bottom.
             position == entries.length - 1
-                ? Padding(padding: EdgeInsets.only(bottom: 96.0))
+                ? Padding(
+                    padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                    child: Text("That's all. 😊",
+                        style: Theme.of(context).textTheme.bodyText2))
                 : Container()
           ]);
         },
