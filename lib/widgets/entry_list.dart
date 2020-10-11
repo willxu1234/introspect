@@ -67,7 +67,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
             position == entries.length - 1
                 ? Padding(
                     padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
-                    child: Text("That's all. 😊",
+                    child: Text('That\'s all. 😊',
                         style: Theme.of(context).textTheme.bodyText2))
                 : Container()
           ]);

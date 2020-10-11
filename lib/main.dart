@@ -17,18 +17,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Introspect',
-      theme: ThemeData(
-        // brightness: Brightness.dark,
-        // primaryColor: Colors.deepPurple[300],
-        // primaryColor: Colors.grey[800],
-        primaryColor: Colors.black,
-        // accentColor: Colors.grey[800],
-        accentColor: Colors.black,
-        textTheme: GoogleFonts.notoSansTextTheme(),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomePage(),
-    );
+        title: 'Introspect',
+        theme: ThemeData(
+          // brightness: Brightness.dark,
+          // primaryColor: Colors.deepPurple[300],
+          // primaryColor: Colors.grey[800],
+          primaryColor: Colors.black,
+          // accentColor: Colors.grey[800],
+          accentColor: Colors.black,
+          textTheme: GoogleFonts.notoSansTextTheme(),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        // For bottom bar navigation.
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomePage(),
+          // TODO: Add new routes.
+          '/graph': (context) => HomePage(),
+          '/legend': (context) => HomePage(),
+        });
   }
 }

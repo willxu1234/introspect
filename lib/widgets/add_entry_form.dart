@@ -148,8 +148,8 @@ class _AddEntryFormPageTwoWidgetState extends State<AddEntryFormPageTwoWidget> {
                 }),
           // Show the last selected emotion if it isn't the first time the
           // user has entered form two.
-          if (newEntryWithBody.emotion.name != "default") Divider(),
-          if (newEntryWithBody.emotion.name != "default")
+          if (newEntryWithBody.emotion.name != 'default') Divider(),
+          if (newEntryWithBody.emotion.name != 'default')
             RadioListTile<Emotion>(
                 title: Text(newEntryWithBody.emotion.name.toUpperCase(),
                     style: Theme.of(context)

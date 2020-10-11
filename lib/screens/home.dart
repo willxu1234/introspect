@@ -49,6 +49,19 @@ class _HomePageState extends State<HomePage> {
         label: Text('Compose'),
         icon: Icon(Icons.add),
       ),
+      // Add bottom navigation to the home screen, provide a callback that moves
+      // around.
+      bottomNavigationBar: BottomNavigation(
+          routeIndex: 0,
+          onTap: (index) {
+            if (index != 0) {
+              Navigator.pushNamed(
+                context,
+                BottomNavigation.routes[index],
+                /* arguments */
+              );
+            }
+          }),
     );
   }
 }
