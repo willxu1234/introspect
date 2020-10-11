@@ -20,7 +20,8 @@ class _EntryListWidgetState extends State<EntryListWidget> {
   Widget build(BuildContext context) {
     // Retrieves entries directly from EntriesModel.
     return Consumer<EntriesModel>(builder: (context, entries, child) {
-      return ListView.builder(
+      return Scrollbar(
+          child: ListView.builder(
         itemCount: entries.length,
         itemBuilder: (context, position) {
           Entry entry = entries.getEntry(position);
@@ -72,7 +73,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
                 : Container()
           ]);
         },
-      );
+      ));
     });
   }
 }
