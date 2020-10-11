@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => HomePage(),
           // TODO: Add new routes.
           '/graph': (context) => HomePage(),
-          '/legend': (context) => HomePage(),
+          '/calendar': (context) => HomePage(),
           '/search': (context) => HomePage(),
         });
   }

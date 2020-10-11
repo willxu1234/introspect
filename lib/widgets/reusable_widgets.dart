@@ -11,7 +11,7 @@ class ReusableWidgets {
 }
 
 class BottomNavigation extends StatelessWidget {
-  static final List<String> routes = ['/', '/graph', '/legend', '/search'];
+  static final List<String> routes = ['/', '/graph', '/calendar', '/search'];
 
   final int routeIndex;
   final ValueChanged<int> onTap;
@@ -25,7 +25,7 @@ class BottomNavigation extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.list_outlined), label: 'Home'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.insert_chart_outlined), label: 'Graph'),
+            icon: Icon(Icons.calendar_today_outlined), label: 'Calendar'),
         BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart_outlined), label: 'Legend'),
         BottomNavigationBarItem(
