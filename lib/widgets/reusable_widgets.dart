@@ -29,3 +29,23 @@ class BottomNavigation extends StatelessWidget {
     ], currentIndex: routeIndex, onTap: onTap);
   }
 }
+
+class SideDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+      DrawerHeader(
+        child: Text('Introspect'),
+      ),
+      ListTile(
+        title: Text('Item 1'),
+        onTap: () {},
+      ),
+      ListTile(
+        title: Text('Item 2'),
+        onTap: () {},
+      )
+    ]));
+  }
+}

@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
               );
             }
           }),
+      endDrawer: SideDrawer(),
     );
   }
 }
