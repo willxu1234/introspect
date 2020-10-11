@@ -44,7 +44,8 @@ class _EntryListWidgetState extends State<EntryListWidget> {
             }()),
             ListTile(
               dense: true,
-              leading: Icon(Icons.face, color: entry.emotion.color, size: 36),
+              leading: Icon(Icons.keyboard_tab_outlined,
+                  color: entry.emotion.color, size: 36),
               trailing: const Icon(Icons.more_vert),
               title: Text(entry.body,
                   overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
