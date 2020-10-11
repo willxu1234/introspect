@@ -32,28 +32,36 @@ class _EntryListWidgetState extends State<EntryListWidget> {
               if (position == 0 ||
                   entry.date.month !=
                       entries.getEntry(position - 1).date.month) {
-                return SizedBox(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 16.0, left: 16.0),
-                      child: Text(DateFormat.yMMM().format(entry.date),
-                          style: Theme.of(context).textTheme.headline6),
-                    ));
+                return Column(children: <Widget>[
+                  SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 16.0, left: 16.0),
+                          child: Text(DateFormat.yMMM().format(entry.date),
+                              style: Theme.of(context).textTheme.headline5))),
+                  Divider(),
+                ]);
               }
               return Container();
             }()),
-            ListTile(
-              dense: true,
-              leading: Icon(Icons.keyboard_tab_outlined,
-                  color: entry.emotion.color, size: 36),
-              trailing: const Icon(Icons.more_vert),
-              title: Text(entry.body,
-                  overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
-              subtitle: Text(DateFormat.yMMMd().add_jm().format(entry.date)),
-              onTap: () {
-                // Set position on tap in Homepage through callback.
-                widget._onEntrySelected(position);
-              },
+            Container(
+              margin: EdgeInsets.only(left: 5.0, bottom: 5.0, top: 5.0),
+              decoration: BoxDecoration(
+                  border: Border(
+                      left:
+                          BorderSide(width: 5.0, color: entry.emotion.color))),
+              child: ListTile(
+                dense: true,
+                trailing: const Icon(Icons.more_vert),
+                title: Text(entry.body,
+                    overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                subtitle: Text(DateFormat.yMMMd().add_jm().format(entry.date)),
+                onTap: () {
+                  // Set position on tap in Homepage through callback.
+                  widget._onEntrySelected(position);
+                },
+                contentPadding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              ),
             ),
             // Add some padding at the end so users can scroll past the bottom.
             position == entries.length - 1
